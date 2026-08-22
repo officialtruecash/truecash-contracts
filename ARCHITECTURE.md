@@ -17,7 +17,7 @@ TrueCash is currently built on the **Binance Smart Chain (BSC)** using a **Zero-
 1. A customer browses a merchant storefront (e.g., `shop.truecash.cc`).
 2. They click "Purchase" on an item.
 3. Instead of sending a standard blockchain transaction, their MetaMask wallet prompts them to **Sign a Message** (EIP-712 Permit). 
-4. The user pays **0 BNB** in gas fees. They only provide a cryptographic signature proving they authorized the transfer of TCASH.
+4. The user pays **0 BNB** in gas fees. They only provide a cryptographic signature proving they authorized the transfer of TRUECASH.
 
 ### Step 2: The Mempool (Backend)
 1. The frontend sends the user's signature, order ID, and wallet address to the Express.js backend via a `POST /api/checkout` request.
@@ -32,9 +32,9 @@ TrueCash is currently built on the **Binance Smart Chain (BSC)** using a **Zero-
 
 ### Step 4: The Smart Contract Execution (On-Chain)
 1. The transaction hits the `TrueCashPaymaster.sol` contract.
-2. **Anti-Spam Check:** The contract verifies the customer holds at least 2,000 TCASH. If not, the transaction reverts.
-3. **Execution:** The contract uses the signature to instantly transfer the purchase amount (e.g., 15 TCASH) directly from the Customer to the Merchant.
-4. **Miner Reward:** The contract automatically withdraws a fixed **1 TCASH** from the Paymaster Treasury and sends it to the Miner to reimburse them for the BNB gas they spent.
+2. **Anti-Spam Check:** The contract verifies the customer holds at least 2,000 TRUECASH. If not, the transaction reverts.
+3. **Execution:** The contract uses the signature to instantly transfer the purchase amount (e.g., 15 TRUECASH) directly from the Customer to the Merchant.
+4. **Miner Reward:** The contract automatically withdraws a fixed **1 TRUECASH** from the Paymaster Treasury and sends it to the Miner to reimburse them for the BNB gas they spent.
 
 ### Step 5: The Confirmation (Resolution)
 1. The backend detects that the transaction was successfully mined on the blockchain.
@@ -68,9 +68,9 @@ sequenceDiagram
     Mempool-->>Miner: Polling returns PENDING Job
     Miner->>BSC: Submit Tx (Miner pays BNB gas fee)
     BSC->>Paymaster: Execute permit()
-    Paymaster-->>Paymaster: Anti-Spam Check (Customer has >= 2000 TCASH)
+    Paymaster-->>Paymaster: Anti-Spam Check (Customer has >= 2000 TRUECASH)
     Paymaster->>Customer: Transfer purchase amount to Merchant
-    Paymaster->>Miner: Auto-Reward 1 TCASH (from Treasury)
+    Paymaster->>Miner: Auto-Reward 1 TRUECASH (from Treasury)
     BSC-->>Mempool: Transaction Confirmed
     Mempool->>Frontend: Update UI to Success (Tx Hash)
 ```
