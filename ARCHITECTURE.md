@@ -48,3 +48,29 @@ The current architecture (Phase 1) is a strategic bridge. It uses the Paymaster 
 
 Once the network reaches critical mass (Phase 3), the protocol will migrate from Binance Smart Chain to a proprietary **TrueCash L1 AppChain** (e.g., via Polygon CDK or Cosmos SDK). 
 On the native L1 network, external gas fees are eliminated by design, ending the Treasury's reliance on BNB and fully decentralizing the consensus mechanism.
+
+## 4. Visual Architecture Diagram
+*GitHub natively renders the below Mermaid code block as a visual flowchart.*
+
+``mermaid
+sequenceDiagram
+    participant Customer
+    participant Frontend
+    participant Mempool as Backend (Mempool)
+    participant Miner as Relayer Node
+    participant BSC as Binance Smart Chain
+    participant Paymaster as TrueCashPaymaster
+    
+    Customer->>Frontend: Clicks Checkout
+    Frontend->>Customer: MetaMask Prompt (Sign EIP-712 Permit)
+    Customer-->>Frontend: Returns Signed Permit (0 BNB gas)
+    Frontend->>Mempool: POST /api/checkout (Order ID + Signature)
+    Mempool-->>Miner: Polling returns PENDING Job
+    Miner->>BSC: Submit Tx (Miner pays BNB gas fee)
+    BSC->>Paymaster: Execute permit()
+    Paymaster-->>Paymaster: Anti-Spam Check (Customer has >= 2000 TCASH)
+    Paymaster->>Customer: Transfer purchase amount to Merchant
+    Paymaster->>Miner: Auto-Reward 1 TCASH (from Treasury)
+    BSC-->>Mempool: Transaction Confirmed
+    Mempool->>Frontend: Update UI to Success (Tx Hash)
+``
