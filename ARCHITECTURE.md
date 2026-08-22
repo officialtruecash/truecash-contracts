@@ -50,7 +50,7 @@ Once the network reaches critical mass (Phase 3), the protocol will migrate from
 On the native L1 network, external gas fees are eliminated by design, ending the Treasury's reliance on BNB and fully decentralizing the consensus mechanism.
 
 ## 4. Visual Architecture Diagram
-*GitHub natively renders the below Mermaid code block as a visual flowchart.*
+The following sequence diagram illustrates the exact lifecycle of a Zero-Gas EIP-712 transaction. It maps the flow of cryptographic signatures and funds from the Customer's initial checkout, through the Relayer Node mempool, and finally to the on-chain execution by the Paymaster contract.
 
 ```mermaid
 sequenceDiagram
