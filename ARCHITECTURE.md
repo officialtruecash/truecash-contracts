@@ -52,7 +52,7 @@ On the native L1 network, external gas fees are eliminated by design, ending the
 ## 4. Visual Architecture Diagram
 *GitHub natively renders the below Mermaid code block as a visual flowchart.*
 
-``mermaid
+```mermaid
 sequenceDiagram
     participant Customer
     participant Frontend
@@ -73,4 +73,4 @@ sequenceDiagram
     Paymaster->>Miner: Auto-Reward 1 TCASH (from Treasury)
     BSC-->>Mempool: Transaction Confirmed
     Mempool->>Frontend: Update UI to Success (Tx Hash)
-``
+```
